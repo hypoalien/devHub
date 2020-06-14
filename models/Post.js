@@ -1,7 +1,5 @@
-import { Schema } from "mongoose";
-
-const mongoose = req("mongoose");
-const schema = mongoose.schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 //Create Schema
 const PostSchema = new Schema({
