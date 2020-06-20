@@ -15,11 +15,18 @@ class Register extends Component {
       password2: "",
       errors: {},
     };
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componetWillReciveProps(nextProps) {
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
@@ -38,12 +45,8 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2,
     };
-    this.props.registerUser(newUser, this.props.history);
 
-    // axios
-    //   .post("/api/users/register", newUser)
-    //   .then((res) => console.log(res.data))
-    //   .catch((err) => this.setState({ errors: err.response.data }));
+    this.props.registerUser(newUser, this.props.history);
   }
 
   render() {
@@ -55,7 +58,9 @@ class Register extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">Create your DevHub account</p>
+              <p className="lead text-center">
+                Create your DevConnector account
+              </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
@@ -69,7 +74,7 @@ class Register extends Component {
                     onChange={this.onChange}
                   />
                   {errors.name && (
-                    <div classname="invalid-feedback">{errors.name}</div>
+                    <div className="invalid-feedback">{errors.name}</div>
                   )}
                 </div>
                 <div className="form-group">
@@ -84,7 +89,7 @@ class Register extends Component {
                     onChange={this.onChange}
                   />
                   {errors.email && (
-                    <div classname="invalid-feedback">{errors.email}</div>
+                    <div className="invalid-feedback">{errors.email}</div>
                   )}
                   <small className="form-text text-muted">
                     This site uses Gravatar so if you want a profile image, use
@@ -103,7 +108,7 @@ class Register extends Component {
                     onChange={this.onChange}
                   />
                   {errors.password && (
-                    <div classname="invalid-feedback">{errors.password}</div>
+                    <div className="invalid-feedback">{errors.password}</div>
                   )}
                 </div>
                 <div className="form-group">
@@ -118,7 +123,7 @@ class Register extends Component {
                     onChange={this.onChange}
                   />
                   {errors.password2 && (
-                    <div classname="invalid-feedback">{errors.password2}</div>
+                    <div className="invalid-feedback">{errors.password2}</div>
                   )}
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
