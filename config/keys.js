@@ -1,5 +1,5 @@
-module.exports = {
-  mongoURI:
-    "mongodb+srv://hypoalien:db..a.a.a.a1@cluster0-q74ju.mongodb.net/Cluster0?retryWrites=true&w=majority",
-  secretOrKey: "inLSDwetrust",
-};
+if (process.env.NODE_ENV === "production") {
+  module.exports = require("./keys_prod");
+} else {
+  module.exports = require("./keys_dev");
+}
